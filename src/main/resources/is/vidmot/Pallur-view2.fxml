@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+
+
+<fx:root fitHeight="10.0" fitWidth="100.0" type="javafx.scene.image.ImageView" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <Image url="@pallur3.png" />
+</fx:root>
+

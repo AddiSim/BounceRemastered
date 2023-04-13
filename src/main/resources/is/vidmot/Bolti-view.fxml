@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.Circle?>
+
+
+<fx:root fitHeight="28.0" fitWidth="28.0" type="javafx.scene.image.ImageView" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1">
+    <Image preserveRatio="true" requestedHeight="30" url="@bolti.png" />
+    <clip><Circle centerX="14" centerY="14" radius="14" /> </clip>
+</fx:root>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import is.vidmot.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.vidmot.BounceController">
+   <center>
+      <Leikbord fx:id="fxLeikbord" BorderPane.alignment="CENTER" />
+   </center>
+   <bottom>
+      <HBox prefHeight="64.0" prefWidth="599.0" BorderPane.alignment="CENTER">
+         <Region prefHeight="64.0" prefWidth="101.0" />
+         <Label alignment="CENTER" prefHeight="64.0" prefWidth="202.0" text="Stigin">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </Label>
+         <Label fx:id="fxStig" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="64.0" prefWidth="142.0" text="0">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </Label>
+      </HBox>
+   </bottom>
+   <right>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="100.0" text="High Score:" />
+            <Label fx:id="fxHighscore" alignment="CENTER" prefHeight="17.0" prefWidth="103.0" />
+            <ListView fx:id="fxStigin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="358.0" prefWidth="100.0" />
+         </children>
+      </VBox>
+   </right>
+</BorderPane>
