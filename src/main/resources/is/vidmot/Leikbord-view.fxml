@@ -4,8 +4,8 @@
 <?import javafx.scene.layout.*?>
 
 
-<fx:root id="pane" prefHeight="500.0" prefWidth="500.0" stylesheets="@bouncingball.css" type="javafx.scene.layout.Pane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
-    <Bolti fx:id="fxBolti" x="10.0" y="5.0" />
+<fx:root id="pane" prefHeight="500.0" prefWidth="500.0" stylesheets="@bounce.css" type="javafx.scene.layout.Pane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <Bolti fx:id="fxBolti" x="230.0" y="50" />
     <Pallur x="20" y="200" />
     <Pallur x="150" y="400" />
     <Pallur x="350" y="300" />

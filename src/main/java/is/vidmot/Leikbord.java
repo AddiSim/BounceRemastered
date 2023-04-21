@@ -6,15 +6,18 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import java.util.List;
 
 
 public class Leikbord extends Pane implements Leikhlutur {
+    public boolean isNewHighScore;
     @FXML
     private Pallur fxPallur;
     @FXML
-    private Bolti fxBolti;  // boltinn
+    private Bolti fxBolti;
 
-    private ObservableList<Pallur> pallar = FXCollections.observableArrayList(); // til þæginda
+
+    private ObservableList<Pallur> pallar = FXCollections.observableArrayList();
 
     public Leikbord() {
         upphafsstilla();
@@ -22,7 +25,7 @@ public class Leikbord extends Pane implements Leikhlutur {
 
     private void upphafsstilla() {
         FXML_Lestur.lesa(this, "Leikbord-view.fxml"); // lesa fxml skrána
-        for (int i = 1; i < getChildren().size(); i++) { // setja pallana í pallar breytuna til hægðarauka
+        for (int i = 1; i < getChildren().size(); i++) {
             pallar.add((Pallur) getChildren().get(i));
         }
         fxBolti.setPallur(null); // boltinn er ekki á neinum palli
@@ -35,7 +38,6 @@ public class Leikbord extends Pane implements Leikhlutur {
     public void afram() {
         if (fxBolti.getPallur() == null) { // bolti er ekki á neinum palli
             fxBolti.afram(); // eitt skref vinstri eða hægri en svo ...
-            fxBolti.setStefna(Stefna.NIDUR); // niður
         } else {
             fxBolti.aframAPalli(); // má færa bolta til vinstri eða hægri
         }
@@ -46,9 +48,9 @@ public class Leikbord extends Pane implements Leikhlutur {
      * Færir palla upp á y ás og athugar hvort bolti er á einhverjum palli
      */
     public void aframPallar() {
-        for (Pallur p : pallar) { // færa alla palla áfram
+        for (Pallur p : pallar) { // pallar færast áfram
             ((Leikhlutur) p).afram();
-            athugaBoltiAPalli(p); // athuga hvort boltinn hefur komist á pall eða er að fara af honum
+            athugaBoltiAPalli(p); // athuga hvort boltinn er á palli
         }
     }
 
@@ -59,11 +61,11 @@ public class Leikbord extends Pane implements Leikhlutur {
      * @param p pallur
      */
     private void athugaBoltiAPalli(Pallur p) {
-        if (fxBolti.getBoundsInParent().intersects(p.getBoundsInParent())) { // er hún á palli p  núna
-            if (!fxBolti.erAPalli(p)) { // bolti var  að komast á pallinn
+        if (fxBolti.getBoundsInParent().intersects(p.getBoundsInParent())) {
+            if (!fxBolti.erAPalli(p)) { // skoðar hvort bolli er a palli
                 setjaBoltaAPall(p); // setja bolta á pall
             }
-        } else if (fxBolti.erAPalli(p)) { // fór af pallinum - aftengja
+        } else if (fxBolti.erAPalli(p)) { // fór af pallinum
             hendaBoltaAfPalli(p);   // henda bolta af palli
         }
     }
@@ -75,7 +77,7 @@ public class Leikbord extends Pane implements Leikhlutur {
      * @param p pallur
      */
     private void setjaBoltaAPall(Pallur p) {
-        fxBolti.setPallur(p);   // segja á hvaða palli boltinn er
+        fxBolti.setPallur(p);
         fxBolti.yProperty().bind(Bindings
                 .createDoubleBinding(() -> p.yProperty().get() - 25,
                         p.yProperty()));
@@ -88,24 +90,14 @@ public class Leikbord extends Pane implements Leikhlutur {
      * @param p pallur
      */
     public void hendaBoltaAfPalli(Node p) {
-        fxBolti.setPallur(null); // af palli
-        fxBolti.yProperty().unbind(); // ekki fylgja pallinum lengur
+        fxBolti.setPallur(null);
+        fxBolti.yProperty().unbind();
     }
 
 
     public Bolti getBolti() {
         return fxBolti;
     }
-
-    private void athugaAreksturPalla() {
-        for (Pallur d : pallar) {
-            d.afram();
-            if (fxBolti.erArekstur(d)) {
-                return;
-            }
-        }
-    }
-
 
     /**
      * Athuga hvort boltinn er fallinn á botninn
@@ -120,18 +112,9 @@ public class Leikbord extends Pane implements Leikhlutur {
      * Nýr leikur. Pöllum eytt og upphafsstillt
      */
     public void nyrLeikur() {
-        getChildren().clear();  // fjarlægja bolta og palla
-        pallar = FXCollections.observableArrayList(); // núllstilla breytu til hægðarauka
-        upphafsstilla();    // upphafsstilla eins og í byrjun
-    }
-
-    public Pallur1 getSpecialPallur1() {
-        for (Node n : getChildren()) {
-            if (n instanceof Pallur1) {
-                return (Pallur1) n;
-            }
-        }
-        return null;
+        getChildren().clear();
+        pallar = FXCollections.observableArrayList();
+        upphafsstilla();
     }
 }
 

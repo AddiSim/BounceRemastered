@@ -60,6 +60,7 @@
                     <target>11</target>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
@@ -70,9 +71,9 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>is.vidmot/is.vidmot.BounceApplication</mainClass>
-                            <launcher>app</launcher>
-                            <jlinkZipName>app</jlinkZipName>
-                            <jlinkImageName>app</jlinkImageName>
+                            <launcher>Bounce Remastered</launcher>
+                            <jlinkZipName>Bounce Remastered</jlinkZipName>
+                            <jlinkImageName>Bounce Remastered</jlinkImageName>
                             <noManPages>true</noManPages>
                             <stripDebug>true</stripDebug>
                             <noHeaderFiles>true</noHeaderFiles>

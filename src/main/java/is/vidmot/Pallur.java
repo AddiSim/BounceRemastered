@@ -20,9 +20,9 @@ public class Pallur extends ImageView implements Leikhlutur {
     }
 
     /**
-     * Pallurinn er efst. Ef bolti fylgir pallinum
+     * Athugar hvort boltinn er efst
      * @param l
-     * @param bolti boltinn sem verið er að athuga hvort er á palli
+     * @param bolti
      */
     private void athugaBoltinnEfst(Leikbord l, Bolti bolti) {
         if (bolti.erAPalli(this)) { // Ef boltinn á þessum palli

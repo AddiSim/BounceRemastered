@@ -15,7 +15,7 @@ public class BounceApplication extends Application {
         ViewSwitcher.setScene (s);
         ViewSwitcher.switchTo(View.BOUNCING);
         BounceController bounceController = (BounceController) ViewSwitcher.lookup(View.BOUNCING);
-        stage.setTitle("Bounce ball");
+        stage.setTitle("Bounce Remastered");
         stage.setScene(s);
         stage.show();
 

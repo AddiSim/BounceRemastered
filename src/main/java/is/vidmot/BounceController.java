@@ -14,7 +14,9 @@ import java.util.HashMap;
 import java.util.Optional;
 
 public class BounceController {
-    private static int INTERVAL = 50;
+
+    private static int INTERVAL = 40;
+
     // Býr til beinan aðgang frá KeyCode og í heiltölu. Hægt að nota til að fletta upp
     // heiltölu fyrir KeyCode
     private static final HashMap<KeyCode, Stefna> map = new HashMap<KeyCode, Stefna>();
@@ -40,7 +42,7 @@ public class BounceController {
         fxStig.textProperty().bind(leikur.stiginProperty().asString());
         fxStigin.setItems(leikur.getTotalStig());
         fxStigin.setFocusTraversable(false);
-        fxHighscore.setText("High Score: " + leikur.getHighScore());
+        fxHighscore.setText("" + leikur.getHighScore());
     }
 
 
@@ -70,7 +72,6 @@ public class BounceController {
      * Stillir upp nýjum leik og byrjar hann
      */
     public void nyrLeikur() {
-        // Display a dialog to get the player's name
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Game Over");
         dialog.setHeaderText("Enter your name:");
@@ -78,19 +79,16 @@ public class BounceController {
 
         Optional<String> result = dialog.showAndWait();
 
-        // If the player entered a name, add the name and points to the stigatafla map
         if (result.isPresent()) {
             String name = result.get();
             int points = leikur.getStigin();
-            leikur.setHighScore(name, points);
-            fxHighscore.setText("High Score: " + leikur.getHighScore());
+            leikur.setHighScore(name, points, fxHighscore);
         }
-        INTERVAL = 50;
+
         leikur.nyrLeikur();
         fxLeikbord.nyrLeikur();
         t.play();
     }
-
 
 
     /**
@@ -100,37 +98,32 @@ public class BounceController {
         KeyFrame k = new KeyFrame(Duration.millis(INTERVAL), e -> {
             fxLeikbord.afram(); // boltinn færist áfram
             fxLeikbord.aframPallar(); // pallar færast áfram
-            leikur.haekkaStigin(); // stigin eru hækkað
+            leikur.haekkaStigin(); // stigin eru hækkuð
+
             if (fxLeikbord.erBoltiABotni()) { // athuga hvort boltinn hefur fallið á botninn
                 leikLokid("Boltinn fór útaf ");
-            } else if (leikur.getStigin() % 500 == 0 && INTERVAL >= 50) { // athuga hvort stigin eru í fjölda af 500
+            }
+
+            if (leikur.getStigin() % 500 == 0 && INTERVAL >= 30) { // athuga hvort stigin eru í fjölda af 500
                 INTERVAL *= 0.5; // setja nýja millisekúndutíðni sem er helmingur af núverandi
                 t.stop(); // stoppa tímalínu
                 t.getKeyFrames().set(0, new KeyFrame(Duration.millis(INTERVAL), e1 -> {
                     fxLeikbord.afram(); // boltinn færist áfram
                     fxLeikbord.aframPallar(); // pallar færast áfram
                     leikur.haekkaStigin(); // stigin eru hækkað
+
                     if (fxLeikbord.erBoltiABotni()) { // athuga hvort boltinn hefur fallið á botninn
                         leikLokid("Boltinn fór útaf ");
-                    }
-                    // check if the ball collides with the special Pallur1 object
-                    if (leikur.getStigin() % 10 == 0 && leikur.getStigin() % 100 != 0) {
-                        Pallur1 pallur1 = fxLeikbord.getSpecialPallur1();
-                        if (pallur1 != null && pallur1.isVisible() && fxLeikbord.getBolti().erAPalli(pallur1)) {
-                            leikLokid("Leik lokið! Þú tapaðir.");
-                        }
                     }
                 })); // uppfæra fyrstu lykilramma í tímalínu
                 t.play(); // spila tímalínu aftur með nýju millisekúndutíðni
             }
         });
+
         t = new Timeline(k);    // búin til tímalína fyrir leikinn
         t.setCycleCount(Timeline.INDEFINITE);   // leikurinn leikur endalaust
         t.play();
     }
-
-
-
 
     /**
      * Leik er lokið eð skilaboðum til notanda sem segir ástæðuna.
@@ -153,7 +146,7 @@ public class BounceController {
      * @param s skilaboð
      */
     private void synaAlert(String s) {
-        Alert a = new AdvorunDialog("", "Bouncing Ball", s + " Viltu leika annan leik? ");
+        Alert a = new AdvorunDialog("", "Bounce Remastered", s + " viltu spila annan leik? ");
         Optional<ButtonType> u = a.showAndWait();
         if (u.isPresent() && !u.get().getButtonData().isCancelButton())
             nyrLeikur();
